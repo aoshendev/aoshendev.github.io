@@ -1,135 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AoShenDev | Geek Tech Blog</title>
+    <title>Send me a message</title>
     <style>
-        /* 基础全局设置 */
-        body {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #1e1e1e;
-            color: #f8f8f2;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* 顶部导航条 */
-        header {
-            background-color: #282a36;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 2px solid #6272a4;
-        }
-
-        header h1 {
-            font-size: 3rem;
-            color: #50fa7b;
-            margin: 0;
-        }
-
-        /* 内容区样式 */
-        main {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #44475a;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
-            border-radius: 8px;
-        }
-
-        /* 文章样式 */
-        article {
-            margin-bottom: 40px;
-        }
-
-        article h2 {
-            color: #ff79c6;
-            font-size: 2rem;
-        }
-
-        article p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin: 20px 0;
-        }
-
-        /* 代码块样式 */
-        pre {
-            background-color: #282a36;
-            color: #f8f8f2;
-            padding: 20px;
-            border-radius: 8px;
-            font-size: 1rem;
-            overflow-x: auto;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-
-        code {
-            color: #ffb86c;
-        }
-
-        /* 底部区域样式 */
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #282a36;
-            border-top: 2px solid #6272a4;
-            margin-top: 40px;
-        }
-
-        footer p {
-            color: #6272a4;
-            font-size: 0.9rem;
-        }
-
-        /* 响应式布局 */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-
-            main {
-                padding: 10px;
-            }
-
-            article h2 {
-                font-size: 1.5rem;
-            }
-
-            article p {
-                font-size: 1rem;
-            }
-        }
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f5f5f5; }
+        .comment-system { max-width: 600px; margin: 0 auto; background-color: #fff; padding: 20px; border-radius: 10px; }
+        textarea { width: 100%; height: 100px; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #218838; }
     </style>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("b_zJE9YxpU9jCVpLZ");  // 用 Public Key 初始化 EmailJS
+        })();
+        
+        function sendEmail(event) {
+            event.preventDefault(); // 防止表单提交刷新页面
+            
+            emailjs.sendForm('service_x34l2bu', 'template_6pwzrml', '#comment-form')
+                .then(function(response) {
+                    alert('评论已成功发送!');
+                }, function(error) {
+                    alert('发送失败，请稍后再试。');
+                });
+        }
+    </script>
 </head>
-
 <body>
-    <header>
-        <h1>AoShenDev - Geek Tech Universe</h1>
-    </header>
-
-    <main>
-        <article>
-            <h2>Welcome to my Universe!</h2>
-            <p>This is the ultimate geek's guide to exploring the realms of technology, coding, and innovation. Whether you're a seasoned developer or just starting out, you'll find something here to expand your knowledge and ignite your passion for tech.</p>
-
-            <p>Check out some code:</p>
-            <pre><code>function welcome() {
-    console.log('Welcome to AoShenDev\'s universe!');
-}</code></pre>
-        </article>
-
-        <article>
-            <h2>Latest Posts</h2>
-            <p>Stay tuned for more in-depth articles, tutorials, and insights into the world of programming, AI, and beyond.</p>
-        </article>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 AoShenDev. All rights reserved.</p>
-    </footer>
+    <div class="comment-system">
+        <h1>评论区</h1>
+        <form id="comment-form" onsubmit="sendEmail(event)">
+            <textarea name="comment" placeholder="输入你的评论..."></textarea>
+            <input type="email" name="email" placeholder="你的邮箱（可选）" />
+            <button type="submit">提交评论</button>
+        </form>
+    </div>
 </body>
-
 </html>
