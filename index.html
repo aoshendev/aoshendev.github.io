@@ -3,82 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comment</title>
+    <title>Feedback</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            margin: 20px; 
-            background-color: #f5f5f5; 
+        /* Font settings */
+        @font-face {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Inter'), url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap') format('woff2');
         }
-        .comment-system { 
-            max-width: 600px; 
-            margin: 0 auto; 
-            background-color: #fff; 
-            padding: 20px; 
-            border-radius: 10px; 
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            color: #000;
+            transition: background-color 0.3s, color 0.3s;
         }
-        textarea { 
-            width: 100%; 
-            height: 100px; 
-            padding: 10px; 
-            margin-bottom: 10px; 
-            border: 1px solid #ccc; 
-            border-radius: 5px; 
+        .comment-system {
+            max-width: 700px;
+            width: 90%;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(120, 204, 226, 0.6);
+            transition: background-color 0.3s, box-shadow 0.3s;
         }
-        input[type="text"], input[type="email"] { 
-            width: 100%; 
-            padding: 10px; 
-            margin-bottom: 10px; 
-            border: 1px solid #ccc; 
-            border-radius: 5px; 
+        h1 {
+            text-align: center;
+            color: #78cce2;
+            margin-bottom: 20px;
         }
-        button { 
-            padding: 10px 15px; 
-            background-color: #28a745; 
-            color: white; 
-            border: none; 
-            border-radius: 5px; 
-            cursor: pointer; 
+        textarea, input[type="text"], input[type="email"] {
+            width: calc(100% - 30px);
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 2px solid #78cce2;
+            border-radius: 12px; /* Smoother borders */
+            background-color: #f0f0f0;
+            color: #333;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            transition: background-color 0.3s, border-color 0.3s;
         }
-        button:hover { 
-            background-color: #218838; 
+        textarea {
+            height: 150px; /* Larger text area for longer input */
+        }
+        textarea:focus, input[type="text"]:focus, input[type="email"]:focus {
+            outline: none;
+            border-color: #78cce2;
+            box-shadow: 0 0 8px #78cce2;
+        }
+        button {
+            padding: 12px 20px;
+            background-color: #78cce2;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #5faec6;
+        }
+        /* Dark mode settings */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #0d0d0d;
+                color: #e0e0e0;
+            }
+            .comment-system {
+                background-color: #1a1a1a;
+                box-shadow: 0 0 15px rgba(120, 204, 226, 0.8);
+            }
+            textarea, input[type="text"], input[type="email"] {
+                background-color: #262626;
+                color: #f0f0f0;
+                border-color: #78cce2;
+            }
+        }
+        /* Copyright styling */
+        .copyright {
+            text-align: center;
+            font-size: 14px;
+            color: #999;
+            margin-top: 20px;
         }
     </style>
     <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script type="text/javascript">
-        // 初始化 EmailJS，使用你的 Public Key
+        // Initialize EmailJS with your Public Key
         (function(){
-            emailjs.init("b_zJE9YxpU9jCVpLZ");  // 确认使用 Public Key
+            emailjs.init("b_zJE9YxpU9jCVpLZ");
         })();
 
-        // 发送邮件的函数
+        // Function to send the email
         function sendEmail(event) {
-            event.preventDefault(); // 防止表单提交导致页面刷新
+            event.preventDefault(); // Prevent form submission from refreshing the page
             
-            // 调用 emailjs.sendForm 函数，使用 Service ID 和 Template ID
+            // Call emailjs.sendForm using your Service ID and Template ID
             emailjs.sendForm('service_x34l2bu', 'template_gqlz8xg', '#comment-form')
                 .then(function(response) {
-                    // 成功回调
-                    alert('Your message is sent sucessfully!');
+                    // Success callback
+                    alert('Your message was sent successfully!');
                 }, function(error) {
-                    // 失败回调
-                    console.error('Fail to send the message:', error); // 打印详细错误信息到控制台
-                    alert('Error occurred, please try again later');
+                    // Failure callback
+                    console.error('Failed to send the message:', error);
+                    alert('An error occurred, please try again later');
                 });
         }
     </script>
 </head>
 <body>
     <div class="comment-system">
-        <h1>Leave a message for ASHENINK</h1>
+        <h1>ASHENINK FEEDBACK</h1>
         <form id="comment-form" onsubmit="sendEmail(event)">
-            <!-- 表单中的名称和模板变量保持一致 -->
             <input type="text" name="from_name" placeholder="Your name" required />
-            <textarea name="message" placeholder="Plase leave a message..." required></textarea>
+            <textarea name="message" placeholder="Please leave a message..." required></textarea>
             <input type="email" name="reply_to" placeholder="Your email (optional)" />
             <button type="submit">Submit</button>
         </form>
+    </div>
+    <div class="copyright">
+        Copyright © 2023 - Present @ Ao Shen
     </div>
 </body>
 </html>
