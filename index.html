@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>评论系统</title>
+    <title>Comment</title>
     <style>
         body { 
             font-family: Arial, sans-serif; 
@@ -60,24 +60,24 @@
             emailjs.sendForm('service_x34l2bu', 'template_gqlz8xg', '#comment-form')
                 .then(function(response) {
                     // 成功回调
-                    alert('评论已成功发送!');
+                    alert('Your message is sent sucessfully!');
                 }, function(error) {
                     // 失败回调
-                    console.error('邮件发送失败:', error); // 打印详细错误信息到控制台
-                    alert('发送失败，请稍后再试。');
+                    console.error('Fail to send the message:', error); // 打印详细错误信息到控制台
+                    alert('Error occurred, please try again later');
                 });
         }
     </script>
 </head>
 <body>
     <div class="comment-system">
-        <h1>评论区</h1>
+        <h1>Leave a message for ASHENINK</h1>
         <form id="comment-form" onsubmit="sendEmail(event)">
             <!-- 表单中的名称和模板变量保持一致 -->
-            <input type="text" name="from_name" placeholder="你的名字" required />
-            <textarea name="message" placeholder="输入你的评论..." required></textarea>
-            <input type="email" name="reply_to" placeholder="你的邮箱（可选）" />
-            <button type="submit">提交评论</button>
+            <input type="text" name="from_name" placeholder="Your name" required />
+            <textarea name="message" placeholder="Plase leave a message..." required></textarea>
+            <input type="email" name="reply_to" placeholder="Your email (optional)" />
+            <button type="submit">Submit</button>
         </form>
     </div>
 </body>
